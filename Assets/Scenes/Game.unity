@@ -308,6 +308,7 @@ MonoBehaviour:
   moneyText: {fileID: 1353137327}
   ship1: {fileID: 282361592}
   ship2: {fileID: 1688470115}
+  ship3: {fileID: 5166446922444084400}
 --- !u!4 &198613024
 Transform:
   m_ObjectHideFlags: 0
@@ -1511,7 +1512,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 800581543779331215, guid: f95b9b9ed0ee0c744b035271488be3de, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 800581543779331215, guid: f95b9b9ed0ee0c744b035271488be3de, type: 3}
       propertyPath: m_TagString
@@ -18072,7 +18073,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 800581543779331215, guid: f95b9b9ed0ee0c744b035271488be3de, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 800581543779331215, guid: f95b9b9ed0ee0c744b035271488be3de, type: 3}
       propertyPath: m_TagString

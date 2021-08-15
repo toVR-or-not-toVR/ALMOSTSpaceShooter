@@ -11,6 +11,7 @@ public class GameControl : MonoBehaviour
     int isShipSold;
     public GameObject ship1;
     public GameObject ship2;
+    public GameObject ship3;
 
 
     
@@ -24,12 +25,21 @@ public class GameControl : MonoBehaviour
         {
             ship1.SetActive(true);
             ship2.SetActive(false);
+            ship3.SetActive(false);
         }
 
-        else
+        else if (isShipSold == 1)
         {
             ship1.SetActive(false);
             ship2.SetActive(true);
+            ship3.SetActive(false);
+        }
+
+        else if (isShipSold == 2)
+        {
+            ship1.SetActive(false);
+            ship2.SetActive(false);
+            ship3.SetActive(true);
         }
     }
 

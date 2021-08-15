@@ -10,9 +10,10 @@ public class ShopControl : MonoBehaviour
 
     int moneyAmount;
     int isShopSold;
+    int shipPrice = 5;
 
     [SerializeField] TMP_Text moneyAmountText;
-    [SerializeField] TMP_Text shipPrice;
+    [SerializeField] TMP_Text shipPriceText;
     public Button buyButton;
 
     // Start is called before the first frame update
@@ -34,12 +35,21 @@ public class ShopControl : MonoBehaviour
             buyButton.interactable = false;
     }
 
-    public void BuyShip()
+    /*public void BuyShip()
     {
-        moneyAmount -= 5;
+        moneyAmount -= shipPrice;
         PlayerPrefs.SetInt("IsShipSold", 1);
 
-        shipPrice.text = "BOUGHT!";
+        shipPriceText.text = "BOUGHT!";
+        buyButton.gameObject.SetActive(false);
+    }*/
+
+    public void BuyShip()
+    {
+        moneyAmount -= shipPrice;
+        PlayerPrefs.SetInt("IsShipSold", StartMenu.pageNow);
+
+        shipPriceText.text = "BOUGHT!";
         buyButton.gameObject.SetActive(false);
     }
 
@@ -53,7 +63,7 @@ public class ShopControl : MonoBehaviour
     {
         moneyAmount = 0;
         buyButton.gameObject.SetActive(true);
-        shipPrice.text = "5$";
+        shipPriceText.text = "5$";
         PlayerPrefs.DeleteAll();
     }
 }
