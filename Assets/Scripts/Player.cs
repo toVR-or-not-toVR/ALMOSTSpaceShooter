@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject playerLaser;
     [SerializeField] float projectileSpeed = 10f;
     [SerializeField] float projectileFiringPeriod = 0.1f;
+    [SerializeField] private Transform laserSpawnPoint;
 
     [Header("Sounds")]
     [SerializeField] AudioClip deathSound;
@@ -192,12 +193,13 @@ public class Player : MonoBehaviour
 
     }
 
+    
 
     IEnumerator FireContinuously()
     {
         while (true)    
         {
-            GameObject laser = Instantiate(playerLaser, transform.position, Quaternion.identity) as GameObject;
+            GameObject laser = Instantiate(playerLaser, laserSpawnPoint.position, Quaternion.identity) as GameObject;
             laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed);
             AudioSource.PlayClipAtPoint(shootSound, Camera.main.transform.position, shootSoundVolume);
             yield return new WaitForSeconds(projectileFiringPeriod);

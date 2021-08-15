@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] float health = 100;
+    [SerializeField] public float health = 100;
     [SerializeField] float shotCounter;
     [SerializeField] float minTimeBetweenShots = 0.2f;
     [SerializeField] float maxTimeBetweenShots = 3f;
@@ -54,9 +56,12 @@ public class Enemy : MonoBehaviour
         ProcessHit(damageDealer);
     }
 
+    public Action OnSetDamage;
+
     private void ProcessHit(DamageDealer damageDealer)
     {
         health -= damageDealer.GetDamage();
+        OnSetDamage?.Invoke();
         damageDealer.Hit();
         if (!damageDealer) { return; }
         if (health <= 0)
