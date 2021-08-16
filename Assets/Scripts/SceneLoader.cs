@@ -5,43 +5,56 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    [SerializeField] float delayInSeconds = 3f;
+    [SerializeField] float delayInSeconds = 1f;
+    public Animator transition_1;
+
+
+    IEnumerator WaitAndLoad(string scene_name)
+    {
+        Debug.Log(delayInSeconds);
+        Time.timeScale = 1f;
+        transition_1.SetTrigger("End");
+        
+        yield return new WaitForSeconds(delayInSeconds);
+        SceneManager.LoadScene(scene_name);
+    }
     public void LoadGame()
     {
-        SceneManager.LoadScene("Game");
-        FindObjectOfType<GameSession>().ResetGame();
+        if (FindObjectOfType<GameSession>() != null)
+        {
+            FindObjectOfType<GameSession>().ResetGame();
+        }
+        
+        StartCoroutine(WaitAndLoad("Game"));
     }
-
+    public void LoadShop()
+    {
+        StartCoroutine(WaitAndLoad("Shop Scene"));
+    }
     public void LoadStartMenu()
     {
-        SceneManager.LoadScene(0);
-
+        StartCoroutine(WaitAndLoad("Start Scene"));
     }
 
     public void QuitGame()
     {
+
+        PlayerPrefs.DeleteAll();
+
         Application.Quit();
     }
 
     public void LoadGameOver()
     {
-        
-        StartCoroutine(WaitAndLoad());
+        StartCoroutine(WaitAndLoad("Finish Scene"));
     }
 
-    IEnumerator WaitAndLoad()
-    {
-        yield return new WaitForSeconds(delayInSeconds);
-        SceneManager.LoadScene("Finish Scene");
-    }
+
 
     public void LoadInstructions()
     {
-        SceneManager.LoadScene("Instructions");
+        StartCoroutine(WaitAndLoad("Instructions"));
     }
 
-    public void LoadShop()
-    {
-        SceneManager.LoadScene("Shop Scene");
-    }
+
 }

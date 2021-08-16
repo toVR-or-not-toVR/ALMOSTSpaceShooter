@@ -20,24 +20,28 @@ public class StartMenu : MonoBehaviour
 
 
 
+    private void Awake()
+    {
+        Time.timeScale = 1f;
+    }
     public void TurnPage(int to) //to = 2
     {
-        Debug.Log("TurnPage " + (pageNow - 1));
+    
         pages[pageNow - 1].transform.DOMoveX(leftSide.position.x, delayPage, false);
-        Debug.Log(to - 1 + " Array: " + pages);
+       
         pages[to - 1].transform.DOMoveX(center.position.x, delayPage, false);
         pageNow = to - 1;
-        Debug.Log("------------");
+     
     }
 
     public void CancelPage(int pagePrevious) //pagePrevious = 1
     {
-        Debug.Log("cancelPage " + pageNow);
+      
         pages[pageNow].transform.DOMoveX(rightSide.position.x, delayPage, false);
-        Debug.Log(pagePrevious - 1 + " Array: " + pages);
+        
         pages[pagePrevious - 1].transform.DOMoveX(center.position.x, delayPage, false);
         pageNow = pagePrevious - 1;
-        Debug.Log("------------");
+        
     }
 
     private void Start()

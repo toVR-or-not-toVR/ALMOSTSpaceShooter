@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 769734301985120980}
   m_Layer: 7
   m_Name: Enemy2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,6 +119,7 @@ MonoBehaviour:
   deathExplosion: {fileID: 6928232909323201955, guid: b50d70bc68e90074bae6ec7884aca77f, type: 3}
   deathSound: {fileID: 8300000, guid: 018f4393e5622424b8e352b931e59984, type: 3}
   deathSoundVolume: 0.75
+  animator_death: {fileID: 7661192856069034268, guid: d5270c10d64459e4cb00ff311d639b8a, type: 3}
   shootSound: {fileID: 8300000, guid: d19342aa201adb847979458f1449e98a, type: 3}
   shootSoundVolume: 1
   scoreValue: 100

@@ -16,6 +16,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] AudioClip deathSound;
     [SerializeField] [Range(0, 1)] float deathSoundVolume = 0.75f;
 
+    [SerializeField] GameObject animator_death;
+
     [SerializeField] AudioClip shootSound;
     [SerializeField] [Range(0, 1)] float shootSoundVolume = 0.25f;
 
@@ -77,8 +79,14 @@ public class Enemy : MonoBehaviour
     {
         FindObjectOfType<GameSession>().AddToScore(scoreValue);
         Destroy(gameObject);
-        GameObject explosion = Instantiate(deathExplosion, transform.position, transform.rotation);    //where is explosion in unity?
-        Destroy(explosion, 1f);
+        // GameObject explosion = Instantiate(deathExplosion, transform.position, transform.rotation);    //where is explosion in unity?
+        //Destroy(explosion, 1f);
+
+        GameObject anim_explosion = Instantiate(animator_death, transform.position, transform.rotation);
+        Destroy(anim_explosion, 1f);
+        //Animator animation_death = animator_death.GetComponent<Animator>();
+
+
         AudioSource.PlayClipAtPoint(deathSound, Camera.main.transform.position, deathSoundVolume);
 
     }

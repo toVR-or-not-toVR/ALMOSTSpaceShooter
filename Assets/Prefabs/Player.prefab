@@ -28,7 +28,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -3.31, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 6541620851891188448}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -100,12 +101,44 @@ MonoBehaviour:
   padding: 1
   health: 200
   moveSpeedPhone: 10
-  shield: {fileID: 0}
+  shield: {fileID: 7084229769500230753, guid: 0255bed04b6ec9e4f8a45107896f5d16, type: 3}
   shielded: 0
   playerLaser: {fileID: 6304109598705196088, guid: a1891a48ce52cbf4685abdff396ef8f8, type: 3}
   projectileSpeed: 10
   projectileFiringPeriod: 0.1
-  deathSound: {fileID: 8300000, guid: 10eac0b6a54af9f4d95a5abcb012f476, type: 3}
+  laserSpawnPoint: {fileID: 6541620851891188448}
+  deathSound: {fileID: 8300000, guid: 018f4393e5622424b8e352b931e59984, type: 3}
   deathSoundVolume: 0.75
   shootSound: {fileID: 8300000, guid: 7443dd16653fe00429d7bfafb5cdc2ff, type: 3}
   shootSoundVolume: 0.75
+  deathExplosion: {fileID: 1330814089860236876, guid: 615449204994a2c4aa60f256ea7f8995, type: 3}
+--- !u!1 &4792306006219947042
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6541620851891188448}
+  m_Layer: 6
+  m_Name: LaserSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6541620851891188448
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4792306006219947042}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.39, y: -0.09, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 800581543779331202}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

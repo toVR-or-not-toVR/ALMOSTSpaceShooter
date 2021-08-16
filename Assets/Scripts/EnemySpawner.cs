@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] List<WaveConfig> waveConfigs;
     [SerializeField] int startingWave = 0;
     [SerializeField] bool looping = false;
+    [SerializeField] bool isEnemy = false;
 
     IEnumerator Start()
     {
@@ -17,33 +19,52 @@ public class EnemySpawner : MonoBehaviour
         while (looping);
 
     }
+
+    private void Update()
+    {
+        StartCoroutine(WaitOneSecond());
+    }
+
+    IEnumerator WaitOneSecond()
+    {
+        yield return new WaitForSeconds(1f);
+        IsEnemeInScene();
+        Debug.Log(isEnemy);
+    }
+
+    void IsEnemeInScene()
+    {
+        if (GameObject.FindGameObjectWithTag("Enemy") != null)
+        {
+            isEnemy = true;
+        }
+        else
+        {
+            isEnemy = false;
+        }
+    }
+
     private IEnumerator SpawnAllWaves()
     {
         for (int waveIndex = startingWave; waveIndex < waveConfigs.Count; waveIndex++)
         {
-
-
-            Debug.Log(FindObjectOfType<Enemy>());
-
             var currentWave = waveConfigs[waveIndex];
 
-            if (waveIndex == 0 || FindObjectOfType<Enemy>() == null )
-            {
-                yield return StartCoroutine(SpawnAllEnemiesInWave(currentWave));
-            }
+            yield return new WaitUntil(() => !isEnemy);
+          
+            StartCoroutine(SpawnAllEnemiesInWave(currentWave));
+        
          
         }
     }
 
-    IEnumerator Wait2Seconds()
-    {
-        yield return new WaitForSeconds(20);
-    }
+
 
     private IEnumerator SpawnAllEnemiesInWave(WaveConfig waveConfig)
     {
         for (int enemyCount = 0; enemyCount < waveConfig.GetNumberOfEnemies(); enemyCount++)
         {
+            isEnemy = true;
             var newEnemy = Instantiate(
                 waveConfig.GetEnemyPrefab(),
                 waveConfig.GetWaypoints()[0].transform.position,
@@ -52,7 +73,7 @@ public class EnemySpawner : MonoBehaviour
             yield return new WaitForSeconds(waveConfig.GetTimeBetweenSpawns());
         }
 
-        StartCoroutine(Wait2Seconds());
+       
     }
 
 }

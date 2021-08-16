@@ -31,6 +31,9 @@ public class Player : MonoBehaviour
     [SerializeField] AudioClip shootSound;
     [SerializeField] [Range(0, 1)] float shootSoundVolume = 0.25f;
 
+    [SerializeField] GameObject deathExplosion;
+
+    private float elapsed = 0f;
 
     Coroutine firingCoroutine;
 
@@ -62,10 +65,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       // MobileMove();
-       // MobileFire();
-        Move(); 
-        Fire();
+        MobileMove();
+        MobileFire();
+        //Move(); 
+       // Fire();
     }
 
 
@@ -76,8 +79,11 @@ public class Player : MonoBehaviour
             
             if (!shielded)
             {
-                Destroy(gameObject);
-                FindObjectOfType<SceneLoader>().LoadGameOver();
+                GameObject player_explosion = Instantiate(deathExplosion, transform.position, transform.rotation);
+                Destroy(player_explosion, 1f);
+                StartCoroutine(LoadGameOver());
+                
+                
             }
         }
 
@@ -138,10 +144,19 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
-        FindObjectOfType<SceneLoader>().LoadGameOver();
-        Destroy(gameObject);
+        GameObject player_explosion = Instantiate(deathExplosion, transform.position, transform.rotation);
+        Destroy(player_explosion, 1f);     
+    
         AudioSource.PlayClipAtPoint(deathSound, Camera.main.transform.position, deathSoundVolume);
-       
+        StartCoroutine(LoadGameOver());
+
+    }
+
+    IEnumerator LoadGameOver()
+    {   yield return new WaitForSeconds(0.9f);
+        Destroy(gameObject);
+        FindObjectOfType<SceneLoader>().LoadGameOver();
+
     }
 
     private void Move()
@@ -157,7 +172,7 @@ public class Player : MonoBehaviour
 
     private void MobileMove()
     {
-        Touch touch = Input.GetTouch(0);
+        /*Touch touch = Input.GetTouch(0);
         touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
         touchPosition.z = 0;
         direction = (touchPosition - transform.position);
@@ -166,15 +181,24 @@ public class Player : MonoBehaviour
         if(touch.phase == TouchPhase.Ended)
         {
             rb.velocity = Vector2.zero;
-        }
+        }*/
 
+        Vector2 mousePosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        Vector2 objPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+
+        transform.position = objPosition;
     }
 
 
 
     private void MobileFire()
     {
-            firingCoroutine = StartCoroutine(FireContinuously());
+        elapsed += Time.deltaTime;
+        if(elapsed >= projectileFiringPeriod)
+        {
+            elapsed = elapsed % projectileFiringPeriod;
+            StartCoroutine(FireContinuously());
+        }
     }
 
 
@@ -197,13 +221,13 @@ public class Player : MonoBehaviour
 
     IEnumerator FireContinuously()
     {
-        while (true)    
-        {
+   
+            yield return new WaitForSeconds(projectileFiringPeriod);
             GameObject laser = Instantiate(playerLaser, laserSpawnPoint.position, Quaternion.identity) as GameObject;
             laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed);
             AudioSource.PlayClipAtPoint(shootSound, Camera.main.transform.position, shootSoundVolume);
-            yield return new WaitForSeconds(projectileFiringPeriod);
-        }
+          
+        
     }
 
     public int GetHealth()

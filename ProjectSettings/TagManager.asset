@@ -8,6 +8,7 @@ TagManager:
   - Shield
   - LifePill
   - Coin
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -42,6 +43,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: AnimatDoors
+    uniqueID: 3442525297
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
